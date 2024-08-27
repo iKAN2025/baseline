@@ -135,122 +135,75 @@ Hi, I'm iKAN2025, a student at Del Norte High School who is interested in comput
 - **Full Stack Development**: Building comprehensive web applications from front-end to back-end.
 - **Team Collaboration**: Working effectively within teams to achieve common goals.
 
-## Magic Box 
+## Color Box 
 
-![Documentation]({{site.baseurl}}/indexdocumententation)
+[Documentation]({{site.baseurl}}/indexdocumententation)
+
+Items start out as colorless before they are dragged into the box. 
 
 
+<!DOCTYPE html>
 <html lang="en">
-<style>
-    body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 0;
-    text-align: center;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-h1 {
-    color: #333;
-}
-
-#draggable-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.draggable-item {
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #333;
-    border-radius: 10px;
-    background-color: #f0f0f0;
-    cursor: pointer;
-    user-select: none;
-}
-
-#magic-box {
-    width: 400px;
-    height: 400px;
-    border: 2px dashed #333;
-    border-radius: 20px;
-    margin: 0 auto;
-    position: relative;
-    background-color: #e0e0e0;
-    overflow: hidden;
-    text-align: center;
-}
-
-.transformed-item {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #000;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-</style>
-
-    <h1>Magic Box</h1>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
     <div id="draggable-container">
         <!-- Draggable items will be added here by JavaScript -->
     </div>
     <div id="magic-box">
         <!-- Dropped items will transform here -->
     </div>
+
+        <script>
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const draggableContainer = document.getElementById("draggable-container");
+            const magicBox = document.getElementById("magic-box");
+
+            // Define only 4 draggable items
+            const items = [
+                { name: "Red", color: "#FF6347" },  // Tomato color
+                { name: "Green", color: "#3CB371" }, // Medium Sea Green
+                { name: "Blue", color: "#1E90FF" },  // Dodger Blue
+                { name: "Yellow", color: "#FFD700" } // Gold
+            ];
+
+            items.forEach((item) => {
+                const draggableItem = document.createElement("div");
+                draggableItem.className = "draggable-item";
+                draggableItem.textContent = item.name;
+                draggableItem.style.backgroundColor = item.color; // Set initial color
+                draggableItem.draggable = true;
+
+                draggableItem.addEventListener("dragstart", function(event) {
+                    event.dataTransfer.setData("text/plain", item.color);
+                });
+
+                draggableContainer.appendChild(draggableItem);
+            });
+
+            magicBox.addEventListener("dragover", function(event) {
+                event.preventDefault();
+            });
+
+            magicBox.addEventListener("drop", function(event) {
+                event.preventDefault();
+                const droppedColor = event.dataTransfer.getData("text/plain");
+                const transformedItem = document.createElement("div");
+                transformedItem.className = "transformed-item";
+                transformedItem.style.backgroundColor = droppedColor; // Retain original color
+                transformedItem.textContent = "Dropped";
+                transformedItem.style.top = `${Math.random() * (magicBox.clientHeight - 50)}px`;
+                transformedItem.style.left = `${Math.random() * (magicBox.clientWidth - 50)}px`;
+
+                magicBox.appendChild(transformedItem);
+            });
+        });
+    </script>
 </body>
 </html>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const draggableContainer = document.getElementById("draggable-container");
-    const magicBox = document.getElementById("magic-box");
-
-    const items = [
-        "Red",
-        "Green",
-        "Blue",
-        "Yellow",
-        "Purple"
-    ];
-
-    items.forEach((item) => {
-        const draggableItem = document.createElement("div");
-        draggableItem.className = "draggable-item";
-        draggableItem.textContent = item;
-        draggableItem.draggable = true;
-
-        draggableItem.addEventListener("dragstart", function(event) {
-            event.dataTransfer.setData("text/plain", item);
-        });
-
-        draggableContainer.appendChild(draggableItem);
-    });
-
-    magicBox.addEventListener("dragover", function(event) {
-        event.preventDefault();
-    });
-
-    magicBox.addEventListener("drop", function(event) {
-        event.preventDefault();
-        const droppedItem = event.dataTransfer.getData("text/plain");
-        const transformedItem = document.createElement("div");
-        transformedItem.className = "transformed-item";
-        transformedItem.textContent = droppedItem;
-        transformedItem.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 70%)`;
-        transformedItem.style.top = `${Math.random() * (magicBox.clientHeight - 50)}px`;
-        transformedItem.style.left = `${Math.random() * (magicBox.clientWidth - 50)}px`;
-
-        magicBox.appendChild(transformedItem);
-    });
-});
-</script>
+    </script>
