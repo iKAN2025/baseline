@@ -21,4 +21,88 @@ Hi, I'm iKAN20225,   a student at Del Norte High School who is interested in com
 - **Full Stack Development**: Building comprehensive web applications from front-end to back-end.
 - **Team Collaboration**: Working effectively within teams to achieve common goals.
 
-## Featured Projects
+# Magic Box 
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Magic Box</h1>
+    <div id="draggable-container">
+        <!-- Draggable items will be added here by JavaScript -->
+    </div>
+        <div id="magic-box">
+        <!-- Dropped items will transform here -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // 1. Make a connection to the HTML container for draggable items and the magic box
+    const draggableContainer = document.getElementById("draggable-container");
+    const magicBox = document.getElementById("magic-box");
+
+    // 2. Define the draggable items data
+    const items = [
+        "Red",
+        "Green",
+        "Blue",
+        "Yellow",
+        "Purple"
+    ];
+
+    // 3. Create and add draggable items to the container using a for loop
+    items.forEach((item, index) => {
+        // Create a draggable item
+        const draggableItem = document.createElement("div");
+        draggableItem.className = "draggable-item";
+        draggableItem.textContent = item;
+
+        // Set draggable attribute
+        draggableItem.draggable = true;
+
+        // Handle drag start event
+        draggableItem.addEventListener("dragstart", function(event) {
+            event.dataTransfer.setData("text/plain", item);
+        });
+
+        // Append the draggable item to the container
+        draggableContainer.appendChild(draggableItem);
+    });
+
+    // Handle drag over event to allow drop
+    magicBox.addEventListener("dragover", function(event) {
+        event.preventDefault(); // Necessary to allow drop
+    });
+
+    // Handle drop event to add transformed item to the magic box
+    magicBox.addEventListener("drop", function(event) {
+        event.preventDefault();
+
+        // Get the dropped item data
+        const droppedItem = event.dataTransfer.getData("text/plain");
+
+        // Create a transformed item
+        const transformedItem = document.createElement("div");
+        transformedItem.className = "transformed-item";
+        transformedItem.textContent = droppedItem;
+
+        // Set a random background color
+        const randomColor = `hsl(${Math.random() * 360}, 70%, 70%)`;
+        transformedItem.style.backgroundColor = randomColor;
+
+        // Set a random position within the magic box
+        transformedItem.style.top = `${Math.random() * (magicBox.clientHeight - 50)}px`;
+        transformedItem.style.left = `${Math.random() * (magicBox.clientWidth - 50)}px`;
+
+        // Append the transformed item to the magic box
+        magicBox.appendChild(transformedItem);
+    });
+});
+
+
+
+</script>
