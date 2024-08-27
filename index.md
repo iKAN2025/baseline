@@ -138,6 +138,7 @@ Hi, I'm iKAN2025, a student at Del Norte High School who is interested in comput
 ## Color Box 
 
 [Documentation]({{site.baseurl}}/indexdocumententation)
+[Ideation]({{site.baseurl}}/indexideation)
 
 Items start out as colorless before they are dragged into the box. 
 
